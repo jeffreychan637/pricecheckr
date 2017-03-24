@@ -1,6 +1,4 @@
 var casper = require('casper').create();
-var x = require('casper').selectXPath;
-
 
 var size = 'S';
 var color = 'Cream';
