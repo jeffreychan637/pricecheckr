@@ -2,9 +2,9 @@ var casper = require('casper').create();
 var x = require('casper').selectXPath;
 
 
-var size = 'L';
-// var color = 'Cream';
-var color = 'Gray';
+var size = 'S';
+var color = 'Cream';
+// var color = 'Gray';
 
 // casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/Buster_Posey_San_Francisco_Giants_Majestic_Alternate_2017_Cool_Base_Player_Jersey_-_Black');
 
@@ -24,7 +24,6 @@ function waitForPageReady() {
 
 function changeToCream() {
     casper.then(function() {
-        // this.click('a[title="Select Cream"]');
         this.click('a[title="Select ' + color +'"]');
     });
 
