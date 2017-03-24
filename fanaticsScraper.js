@@ -34,7 +34,6 @@ function changeColor() {
 };
 
 function changeSize() {
-    var sizeGone;
     casper.then(function() {
         if (this.exists('div[title="' + size + ' - Out of stock"]')) {
             this.echo('Stock: Out');
