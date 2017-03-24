@@ -72,9 +72,15 @@ function verifySizeAvailability() {
 };
 
 function checkPrice() {
-    //should echo price during testing
-    //echo sale or no sale (Sale: Yes, Sale: No)
-
+    casper.then(function() {
+        if (this.exists('section.priceContainer.Regular.large')) {
+            this.echo('Sale: No');
+            checkRegularPrice();
+        } else if (this.exists('section.priceContainer.Sale.large')) {
+            this.echo('Sale: Yes');
+            checkSalePrice();
+        }
+    });
 };
 
 function checkSalePrice() {
