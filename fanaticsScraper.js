@@ -8,13 +8,12 @@ var color = 'Gray';
 
 // casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/Buster_Posey_San_Francisco_Giants_Majestic_Alternate_2017_Cool_Base_Player_Jersey_-_Black');
 
-casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/Madison_Bumgarner_San_Francisco_Giants_Majestic_Alternate_2017_Cool_Base_Player_Jersey_-_Black')
+casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/Madison_Bumgarner_San_Francisco_Giants_Majestic_Alternate_2017_Cool_Base_Player_Jersey_-_Black');
+// casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/on_sale/yes/Madison_Bumgarner_San_Francisco_Giants_Majestic_2016_MLB_All-Star_Game_Signature_Flex_Base_Jersey_-_Gray');
 
 function waitForPageReady() {
     casper.waitFor(function check() {
-        // this.echo(color);
         return this.evaluate(function(color) {
-            // return document.querySelector('div[title="Select Cream"]');
             return document.querySelector('div[title="Select ' + color + '"]');
         }, color);
     }, function then() {
@@ -31,12 +30,10 @@ function changeToCream() {
 
     casper.waitFor(function check() {
         return this.evaluate(function(color) {
-            // return document.querySelector('span.selected-color-readable').innerHTML === 'Cream';
             return document.querySelector('span.selected-color-readable').innerHTML === color;
         }, color);
     }, function then() {
         changeSize();
-        return;
     });
 };
 
@@ -44,8 +41,7 @@ function changeSize() {
     var sizeGone;
     casper.then(function() {
         if (this.exists('div[title="' + size + ' - Out of stock"]')) {
-        // if (this.exists('div[title="M - Out of stock"]')) {
-            this.echo('Product is out of stock');
+            this.echo('Stock: Out');
         } else {
             this.click('a[title="Choose Size ' + size + '"]');
             verifySizeAvailability();
@@ -64,7 +60,7 @@ function verifySizeAvailability() {
             return document.querySelector('div[data-talos="labelOutOfStockAlert"]').innerHTML;
         });
         if (value) {
-            this.echo('Stock is limited');
+            this.echo('Stock: Limited');
             this.echo(value);
         }
         checkPrice();
@@ -90,6 +86,7 @@ function checkRegularPrice() {
                            .querySelector('span.price-value').innerHTML;
         });
         this.echo('Price: ' + price);
+        checkFreeShipping();
     });
 };
 
@@ -113,12 +110,17 @@ function checkSalePrice() {
         });
         this.echo('Sale Price: ' + prices.salePrice);
         this.echo('Regular Price: ' + prices.regularPrice);
-        this.echo('You Save: ' + prices.difference);
+        this.echo('Price Difference: ' + prices.difference);
+        checkFreeShipping();
     });
 };
 
 function checkFreeShipping() {
-    //Check if free shipping exists
+    casper.then(function() {
+        if (this.exists('div.free-shipping-coupon-message')) {
+            this.echo('Free Shipping: Yes');
+        }
+    });
 };
 
 waitForPageReady();
