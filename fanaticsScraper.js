@@ -83,8 +83,38 @@ function checkPrice() {
     });
 };
 
+function checkRegularPrice() {
+    casper.then(function() {
+        var price = this.evaluate(function() {
+            return document.querySelector('section.priceContainer.Regular.large')
+                           .querySelector('span.price-value').innerHTML;
+        });
+        this.echo('Price: ' + price);
+    });
+};
+
 function checkSalePrice() {
-    //should echo price during testing
+    casper.then(function() {
+        var prices = this.evaluate(function() {
+            var prices = {};
+            prices.salePrice = document.querySelector('section.priceContainer.Sale.large')
+                                       .querySelector('p.price.sale')
+                                       .querySelector('span.price-value')
+                                       .innerHTML;
+            prices.regularPrice = document.querySelector('section.priceContainer.Sale.large')
+                                          .querySelector('p.price.original')
+                                          .querySelector('span.price-value')
+                                          .innerHTML;
+            prices.difference = document.querySelector('section.priceContainer.Sale.large')
+                                        .querySelector('p.price.saved')
+                                        .querySelector('span.price-value')
+                                        .innerHTML;
+            return prices;
+        });
+        this.echo('Sale Price: ' + prices.salePrice);
+        this.echo('Regular Price: ' + prices.regularPrice);
+        this.echo('You Save: ' + prices.difference);
+    });
 };
 
 function checkFreeShipping() {
