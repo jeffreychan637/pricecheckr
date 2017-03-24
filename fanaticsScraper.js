@@ -4,11 +4,10 @@ var x = require('casper').selectXPath;
 
 var size = 'S';
 var color = 'Cream';
-// var color = 'Gray';
 
-// casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/Buster_Posey_San_Francisco_Giants_Majestic_Alternate_2017_Cool_Base_Player_Jersey_-_Black');
+casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/Buster_Posey_San_Francisco_Giants_Majestic_Alternate_2017_Cool_Base_Player_Jersey_-_Black');
 
-casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/Madison_Bumgarner_San_Francisco_Giants_Majestic_Alternate_2017_Cool_Base_Player_Jersey_-_Black');
+// casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/Madison_Bumgarner_San_Francisco_Giants_Majestic_Alternate_2017_Cool_Base_Player_Jersey_-_Black');
 // casper.start('http://www.fanatics.com/MLB_San_Francisco_Giants_Mens_Jerseys/on_sale/yes/Madison_Bumgarner_San_Francisco_Giants_Majestic_2016_MLB_All-Star_Game_Signature_Flex_Base_Jersey_-_Gray');
 
 function waitForPageReady() {
@@ -24,7 +23,7 @@ function waitForPageReady() {
 
 function changeToCream() {
     casper.then(function() {
-        this.click('a[title="Select ' + color +'"]');
+        this.click('a[title="Select ' + color + '"]');
     });
 
     casper.waitFor(function check() {
