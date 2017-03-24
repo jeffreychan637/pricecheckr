@@ -16,12 +16,12 @@ function waitForPageReady() {
             return document.querySelector('div[title="Select ' + color + '"]');
         }, color);
     }, function then() {
-        changeToCream();
-        this.echo("found it");
+        this.echo('Site Page Reached');
+        changeColor();
     });
 };
 
-function changeToCream() {
+function changeColor() {
     casper.then(function() {
         this.click('a[title="Select ' + color + '"]');
     });
@@ -118,6 +118,13 @@ function checkFreeShipping() {
         if (this.exists('div.free-shipping-coupon-message')) {
             this.echo('Free Shipping: Yes');
         }
+    });
+    echoCompletion();
+};
+
+function echoCompletion() {
+    casper.then(function() {
+        this.echo('Reached End of Script');
     });
 };
 
